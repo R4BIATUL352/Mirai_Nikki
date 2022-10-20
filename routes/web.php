@@ -15,18 +15,18 @@ use App\Http\Controllers\RegisterController;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+Route::group(['middleware' => 'web'], function () {
+    // Route::auth();
 
-//Login
-Route::get('/', [LoginController::class, 'login'])->name('login');
-Route::post('actionlogin', [LoginController::class, 'actionlogin'])->name('actionlogin');
+    //Login
+    Route::get('/', [LoginController::class, 'login'])->name('login');
+    Route::post('actionlogin', [LoginController::class, 'actionlogin'])->name('actionlogin');
 
-//Home
-Route::get('home', [HomeController::class, 'home'])->name('home')->middleware('auth');
-Route::post('actionlogout', [LoginController::class, 'actionlogout'])->name('actionlogout')->middleware('auth');
+    //Home
+    Route::get('home', [HomeController::class, 'index'])->name('home');
+    Route::post('actionlogout', [LoginController::class, 'actionlogout'])->name('actionlogout');
 
-//Register
-Route::get('register', [RegisterController::class, 'register'])->name('register');
-Route::post('register/action', [RegisterController::class, 'actionregister'])->name('actionregister');
+    //Register
+    Route::get('register', [RegisterController::class, 'register'])->name('register');
+    Route::post('register/action', [RegisterController::class, 'actionregister'])->name('actionregister');
+});
